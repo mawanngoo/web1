@@ -10,13 +10,13 @@
 Your browser does not support the HTML 5 Canvas.
 </canvas>
 </br>
-<input type="button" id="am" value="-" onclick="ami()" style="width:100px;height:100px;font-size:30px;"/>
+<input type="button" id="am" value="-" onclick="clickbtn('am');" style="width:100px;height:100px;font-size:30px;"/>
 <input type="text" id="aaaa" value="1" disabled="disabled" style="width:100px;height:100px;font-size:30px;text-align:center;"/>
-<input type="button" id="ap" value="+" onclick="app()" style="width:100px;height:100px;font-size:30px;"/>
-</br>----------------------------------</br>
-<input type="button" id="bm" value="-" onclick="bmi()" style="width:100px;height:100px;font-size:30px;"/>
+<input type="button" id="ap" value="+" onclick="clickbtn('ap');" style="width:100px;height:100px;font-size:30px;"/>
+</br>-------------------------------------------------</br>
+<input type="button" id="bm" value="-" onclick="clickbtn('bm');" style="width:100px;height:100px;font-size:30px;"/>
 <input type="text" id="bbbb" value="1" disabled="disabled" style="width:100px;height:100px;font-size:30px;text-align:center;"/>
-<input type="button" id="bp" value="+" onclick="bpp()" style="width:100px;height:100px;font-size:30px;"/>
+<input type="button" id="bp" value="+" onclick="clickbtn('bp');" style="width:100px;height:100px;font-size:30px;"/>
 <script>
 var canvas;
 var context;
@@ -30,45 +30,35 @@ window.onload = function(){
 	canvas_play();	
 }
 
-function ami(){
-
-  var tmp = document.getElementById('aaaa').value;
-  tmp--;
-  if(tmp < 0)
-    tmp = 0;
-  document.getElementById('aaaa').value = sel = tmp;
-  canvas_play();
-}
-function bmi(){
-  var tmp = document.getElementById('bbbb').value;
-  tmp--;
-  if(tmp < 1)
-    tmp = 1;
+function clickbtn(elem)
+{
+  var tmpA = document.getElementById('aaaa').value;
+  var tmpB = document.getElementById('bbbb').value;
+  
+  if(elem == "am")  tmpA--;
+  else if(elem == "bm")  tmpB--;
+  else if(elem == "ap")  tmpA++;
+  else if(elem == "bp")  tmpB++;
+  
+  if(tmpA < 0)
+    tmpA = 0;
+  
+  if(tmpB < 1)
+    tmpB = 1;
     
-  if(tmp < sel)
-  {
-    sel = tmp;    
-    document.getElementById('aaaa').value = sel = tmp; 
-  }
-  document.getElementById('bbbb').value = spl = tmp;
+  if(tmpB < tmpA)
+    tmpA = tmpB;
+  
+  if(tmpA > tmpB)
+    tmpA = tmpB;
+  
+  document.getElementById('aaaa').value = sel = tmpA;
+  document.getElementById('bbbb').value = spl = tmpB;
+
   canvas_play();
+
 }
 
-function app(){
-  var tmp = document.getElementById('aaaa').value;  
-  tmp++;
-  if(tmp > spl)
-    tmp = spl;
-  document.getElementById('aaaa').value = sel = tmp;
-  canvas_play();
-}
-
-function bpp(){
-  var tmp = document.getElementById('bbbb').value;
-  tmp++;
-  document.getElementById('bbbb').value = spl = tmp;
-  canvas_play();
-}
 function canvas_play(){
   	canvas = document.getElementById('canvas');
   	context = canvas.getContext('2d');
