@@ -44,6 +44,12 @@ function bmi(){
   tmp--;
   if(tmp < 1)
     tmp = 1;
+    
+  if(tmp < sel)
+  {
+    sel = tmp;    
+    document.getElementById('aaaa').value = sel = tmp; 
+  }
   document.getElementById('bbbb').value = spl = tmp;
   canvas_play();
 }
@@ -64,9 +70,10 @@ function bpp(){
   canvas_play();
 }
 function canvas_play(){
-	canvas = document.getElementById('canvas');
-	context = canvas.getContext('2d');
+  	canvas = document.getElementById('canvas');
+  	context = canvas.getContext('2d');
 
+    context.strokeStyle="orange";
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		context.beginPath();
 		context.moveTo(250, 250);
@@ -75,95 +82,27 @@ function canvas_play(){
 		context.fillStyle = "yellow";
 		context.fill();
 		
-		if(spl > 1)
-		{
-				for(var i=0; i < spl; i++)
-    		{
-          context.strokeStyle="orange";
-      		context.beginPath();
-      		context.moveTo(250, 250);
-      		context.arc( circle.x, circle.y, 250, (Math.PI/180)*((360/spl)*i), (Math.PI/180)*((360/spl)*(i+1)));
-      		context.closePath();
-      		context.stroke();
-    		}
-		}
-		
-		for(var i=0; i < sel; i++)
+		for(var i=0; i < spl; i++)
 		{
   		context.beginPath();
   		context.moveTo(250, 250);
   		context.arc( circle.x, circle.y, 250, (Math.PI/180)*((360/spl)*i), (Math.PI/180)*((360/spl)*(i+1)));
   		context.closePath();
+  		if(sel!=0 || spl!=1)
+        context.stroke();
+		}
+
+		for(var j=0; j < sel; j++)
+		{
+  		context.beginPath();
+  		context.moveTo(250, 250);
+  		context.arc( circle.x, circle.y, 250, (Math.PI/180)*((360/spl)*j), (Math.PI/180)*((360/spl)*(j+1)));
+  		context.closePath();
   		context.fillStyle = "blue";
   		context.fill();
-      context.stroke();
+  		if(sel!=1)
+     	  context.stroke();
 		}
-		
-		
-		/*
-		//context.strokeStyle="black";
-    context.beginPath();
-		context.moveTo(250, 250);
-		context.arc( circle.x, circle.y, 250, 0, (Math.PI/180)*90);
-		context.closePath();
-		//context.fillStyle = "green";
-		//context.fill();
-		context.stroke();
-		
-		//context.strokeStyle="black";
-		context.beginPath();
-		context.moveTo(250, 250);
-		context.arc( circle.x, circle.y, 250, (Math.PI/180)*90, (Math.PI/180)*180);
-		context.closePath();
-		//context.fillStyle = "orange";
-		//context.fill();		
-		context.stroke();
-		
-		//context.strokeStyle="black";
-		context.beginPath();
-		context.moveTo(250, 250);
-		context.arc( circle.x, circle.y, 250, (Math.PI/180)*180, (Math.PI/180)*270);
-		context.closePath();
-		//context.fillStyle = "blue";
-		//context.fill();		
-		context.stroke();
-		*/
-		//context.strokeStyle="red";
-		//context.moveTo(250, 250);
-		//context.lineTo(50, 250);
-		//context.moveTo(250, 250);
-		//context.lineTo(450, 250);
-		//context.moveTo(250, 250);
-		//context.lineTo(250, 50);
-		//context.moveTo(250, 250);
-		//context.lineTo(250, 450);
-		//context.stroke();
-		
-		//context.fillStyle='rgba(100, 100, 100, 0.5)';
-		//context.fill();
-	  //moving();
-	  
-	/*function moving(){
-		var a = setInterval(function(){
-			var angle = 45;
-			var radian = angle * Math.PI/180;
-			var x_position = Math.cos(radian) * speed;
-			var y_position = Math.sin(radian) * speed;
-
-			circle.x += x_position;
-			circle.y += y_position;
-
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			context.beginPath();
-			context.arc( circle.x, circle.y, 20, 0, Math.PI*2);
-			context.closePath();
-			context.fillStyle = "blue";
-			context.fill();
-			if(circle.x > canvas.width){
-				clearInterval(a);
-			}
-		}, speed_time);
-	} //-- end moving() ----------------------------------//*/
 }
 </script>
 </body>
