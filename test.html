@@ -11,7 +11,7 @@ Your browser does not support the HTML 5 Canvas.
 </canvas>
 </br>
 <input type="button" id="am" value="-" onclick="clickbtn('am');" style="width:100px;height:100px;font-size:30px;"/>
-<input type="text" id="aaaa" value="0" disabled="disabled" style="width:100px;height:100px;font-size:30px;text-align:center;"/>
+<input type="text" id="aaaa" value="1" disabled="disabled" style="width:100px;height:100px;font-size:30px;text-align:center;"/>
 <input type="button" id="ap" value="+" onclick="clickbtn('ap');" style="width:100px;height:100px;font-size:30px;"/>
 </br>-------------------------------------------------</br>
 <input type="button" id="bm" value="-" onclick="clickbtn('bm');" style="width:100px;height:100px;font-size:30px;"/>
@@ -22,7 +22,10 @@ var canvas;
 var context;
 var circle = {x:250, y:250};
 var spl=1;
-var sel=0;
+var sel=1;
+
+var image = new Image();
+image.src="./img/Pizza2.jpg";
 
 window.onload = function(){
 	canvas_play();	
@@ -46,10 +49,7 @@ function clickbtn(elem)
     
   if(tmpB < tmpA)
     tmpA = tmpB;
-  
-  if(tmpA > tmpB)
-    tmpA = tmpB;
-  
+    
   document.getElementById('aaaa').value = sel = tmpA;
   document.getElementById('bbbb').value = spl = tmpB;
   
@@ -60,10 +60,6 @@ function clickbtn(elem)
 function canvas_play(){
   	canvas = document.getElementById('canvas');
   	context = canvas.getContext('2d');
-
-		var image = new Image();
-    image.src="./img/Pizza2.jpg";
-    var pattern = context.createPattern(image, "repeat");
     
     context.strokeStyle="red";
   	context.lineWidth = 5;
@@ -82,19 +78,20 @@ function canvas_play(){
   		context.moveTo(250, 250);
   		context.arc( circle.x, circle.y, 250, (Math.PI/180)*((360/spl)*i), (Math.PI/180)*((360/spl)*(i+1)));
   		context.closePath();
-      if(sel!=0 || spl!=1)
+      if(!(sel==0 && spl==1))
   		  context.stroke();
 		}
 
 		for(var j=0; j < sel; j++)
 		{
+      var pattern = context.createPattern(image, "repeat");
   		context.beginPath();
   		context.moveTo(250, 250);
   		context.arc( circle.x, circle.y, 250, (Math.PI/180)*((360/spl)*j), (Math.PI/180)*((360/spl)*(j+1)));
   		context.closePath();
   		context.fillStyle = pattern;  //"blue";
   		context.fill();  
-      if(sel!=1)		
+      if(!(sel==1 && spl==1))
     		context.stroke();
 		}
 
